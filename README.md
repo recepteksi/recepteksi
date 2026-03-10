@@ -6,7 +6,7 @@
 </p>
 
 <p align="center">
-  <a href="https://linkedin.com/in/recepteksi">
+  <a href="https://linkedin.com/in//recep-ek%C5%9Fi-473b29222">
     <img src="https://img.shields.io/badge/LinkedIn-0077B5?style=flat-square&logo=linkedin&logoColor=white"/>
   </a>
   <a href="mailto:recep2534@gmail.com">
