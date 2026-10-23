@@ -1,67 +1,106 @@
-<h1 align="center">Recep Ekşi</h1>
+<div align="center">
 
-<p align="center">
-  <strong>Mobile Development Team Lead | Senior Flutter & Android Developer</strong><br>
-  Specialized in Domain-Driven Design (DDD) & Clean Architecture
-</p>
+# Recep Ekşi
 
-<p align="center">
-  <a href="https://linkedin.com/in//recep-ek%C5%9Fi-473b29222">
-    <img src="https://img.shields.io/badge/LinkedIn-0077B5?style=flat-square&logo=linkedin&logoColor=white"/>
-  </a>
-  <a href="mailto:recep2534@gmail.com">
-    <img src="https://img.shields.io/badge/Gmail-D14836?style=flat-square&logo=gmail&logoColor=white"/>
-  </a>
-</p>
+**Mobile Development Team Lead · Senior Flutter & Android Developer**
+
+I build Flutter apps that stay easy to change years later — Domain-Driven Design and
+Clean Architecture underneath, smooth and accessible screens on top.
+
+[LinkedIn](https://www.linkedin.com/in/recep-ek%C5%9Fi-473b29222) · [Email](mailto:recep2534@gmail.com) · [Recipely](https://recipely.net)
+
+</div>
 
 ---
 
-### 🏛️ Architectural Philosophy
+### Flutter, the way I build it
 
-I believe that a sustainable mobile application is built on a solid foundation. My core focus is implementing **Domain-Driven Design (DDD)** and **Clean Architecture** to ensure that complex business logic remains decoupled from delivery mechanisms.
+- **Layered on purpose.** Domain, application, infrastructure and presentation are separate layers with
+  rules about who may import whom; entities and value objects hold the business rules, not the widgets.
+- **State you can reason about.** BLoC / Cubit with explicit, named states — loading, loaded, failed — never
+  a handful of booleans that can contradict each other.
+- **Errors are values.** Failures travel as results, so every screen decides what the user sees when
+  something goes wrong.
+- **One codebase, every screen size.** Phones, tablets, foldables and the web from the same Flutter app.
+- **Leading the team around it.** Code review, CI gates and a shared architecture so a growing team keeps
+  shipping without breaking what already works.
 
-* **Precision:** Crafting testable, modular, and maintainable codebases.
-* **Leadership:** Mentoring engineering teams and establishing robust development workflows.
-* **Performance:** Delivering high-performance mobile experiences across multiple platforms.
+### Featured work
 
----
+<table>
+<tr>
+<td width="50%" valign="top">
 
-### 🛠 Technical Ecosystem
+**[LGS Ödül Avı](https://github.com/recepteksi/lgs_reward_hunt)** · Flutter<br>
+A parent-controlled, gamified study app for students preparing for the LGS exam: daily tasks, points,
+rewards a parent approves. Clean Architecture + DDD.
 
-| Category | Technologies |
-| :--- | :--- |
-| **Primary** | Flutter, Dart (Advanced), Android (Kotlin/Java) |
-| **Architecture** | DDD, Clean Architecture, Layered Architecture |
-| **State Management** | BLoC, Cubit, Provider |
-| **Integrations** | REST API (Dio/Http), Firebase, Secure Storage, JWT |
-| **Dev Tools** | Git, GitHub Actions, Postman, Figma |
+</td>
+<td width="50%" valign="top">
 
----
+**[Workout Planner](https://github.com/recepteksi/workout-planner)** · Flutter<br>
+Manages workout programs on Android and the web, and tells you which program to train next.
+[Live on the web](https://workout-planner-web.web.app).
 
-### 🚀 Highlighted Project: Shartflix
+</td>
+</tr>
+<tr>
+<td width="50%" valign="top">
 
-A deep-dive case study into **Enterprise-Level Architecture** in Flutter.
+**[BriefAI](https://github.com/recepteksi/briefai)** · Flutter<br>
+An AI email assistant for mobile: spoken daily briefings, tiered smart notifications and suggested
+replies.
 
-* **Approach:** Fully implemented 4-layer DDD (Domain, Infrastructure, Application, Presentation).
-* **Key Focus:** Value Objects, Entity management, and strict separation of concerns.
-* **Repo:** [Shartflix Project](https://github.com/recepteksi/shartflix)
+</td>
+<td width="50%" valign="top">
 
----
+**[Shartflix](https://github.com/recepteksi/shartflix)** · Flutter<br>
+A case study in enterprise Flutter architecture: four DDD layers, value objects, Cubit, and one codebase
+for Android, iOS, web, Windows and macOS.
 
-### 📊 Engineering Insights
+</td>
+</tr>
+<tr>
+<td width="50%" valign="top">
 
-<p align="center">
-  <img src="https://github-readme-streak-stats.herokuapp.com/?user=recepteksi&theme=tokyonight" alt="Recep's Streak" height="170" />
-  
-  <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=recepteksi&layout=compact&theme=tokyonight&hide=html,css,javascript,vue,typescript" height="170" />
+**[ARSample](https://github.com/recepteksi/ARSample)** · Kotlin Multiplatform<br>
+Augmented-reality object placement on Android and iOS (ARCore / ARKit), with Compose Multiplatform,
+Clean Architecture and DDD.
+
+</td>
+<td width="50%" valign="top">
+
+**[Recipely](https://recipely.net)** · React Native · TypeScript<br>
+A recipe app on iOS, Android and the web: import from social media, cook hands-free with a voice
+assistant, plan meals. Built on the same DDD layering.
+
+</td>
+</tr>
+</table>
+
+### Tech stack
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="assets/stack-dark.svg">
+  <img alt="Tech stack: Flutter, Dart, Kotlin, Android, Swift; Clean Architecture, Domain-Driven Design, BLoC / Cubit, Provider; React, Expo, TypeScript; Firebase, GitHub Actions, Postman, Figma" src="assets/stack-light.svg" width="100%">
+</picture>
+
+### On GitHub
+
+<p>
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="assets/activity-dark.svg">
+    <img alt="GitHub activity" src="assets/activity-light.svg" width="49%">
+  </picture>
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="assets/languages-dark.svg">
+    <img alt="Languages I write" src="assets/languages-light.svg" width="49%">
+  </picture>
 </p>
 
+<sub>These cards are generated by this repository's own daily workflow (<code>scripts/</code>), not by an outside
+service, so they cannot go missing.</sub>
+
 ---
 
-<p align="center">
-  <em>"Architecture is the decisions that you wish you could get right early in a project."</em>
-</p>
-
-<p align="center">
-  <img src="https://komarev.com/ghpvc/?username=recepteksi&label=Profile%20Views&color=3399FF&style=flat-square" alt="recepteksi" />
-</p>
+<p align="center"><em>"Architecture is the decisions that you wish you could get right early in a project."</em></p>
