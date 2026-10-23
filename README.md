@@ -43,4 +43,9 @@ I'm not tied to one stack. I've shipped Dart, Kotlin, TypeScript and JavaScript,
   <img alt="GitHub contributions over the last 12 months" src="assets/activity-light.svg?v=411e2b1050" width="100%">
 </picture>
 
-<!-- visits -->
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://visits.recipely.net/visits.svg?theme=dark">
+    <img alt="Profile visits" src="https://visits.recipely.net/visits.svg?theme=light" height="34">
+  </picture>
+</p>
