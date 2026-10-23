@@ -1,5 +1,5 @@
 /**
- * Builds assets/stack-{light,dark}.svg: the tech stack from the CV, Flutter first.
+ * Builds assets/stack-{light,dark}.svg: the tech stack, taken from the CV.
  *
  * Logos are Simple Icons 15.0.0 paths (CC0) copied into stack-icons.json, so
  * nothing outside this repo can break the picture. Ideas without a logo are
@@ -12,9 +12,11 @@ const ICONS = JSON.parse(fs.readFileSync(new URL('./stack-icons.json', import.me
 
 /** A tile is an icon key, or [key, label] when the label is not the logo's own name. */
 const ROWS = [
-  { label: 'Mobile', tiles: ['flutter', 'dart', 'kotlin', 'jetpackcompose', 'android', ['react', 'React Native'], 'expo', 'ionic'] },
-  { label: 'Web & backend', tiles: ['typescript', 'react', 'vuedotjs', 'angular', 'nodedotjs', 'express', 'prisma', 'postgresql'] },
-  { label: 'Platform & delivery', tiles: ['firebase', 'docker', 'gitlab', 'githubactions', 'appstore', 'googleplay'] },
+  { label: 'Languages', tiles: ['typescript', 'javascript', 'dart', 'kotlin', 'python', 'html5', 'css'] },
+  { label: 'Mobile', tiles: ['flutter', ['react', 'React Native'], 'expo', 'android', 'jetpackcompose', 'ionic', 'capacitor'] },
+  { label: 'Web & backend', tiles: ['react', 'vuedotjs', 'angular', 'nodedotjs', 'express', 'prisma', 'postgresql', 'sap'] },
+  { label: 'Cloud & delivery', tiles: ['firebase', 'docker', 'cloudflare', 'githubactions', 'gitlab', 'apachemaven', 'appstore', 'googleplay'] },
+  { label: 'Design & AI', tiles: ['figma', 'claude', 'googlegemini', 'githubcopilot'] },
 ];
 const PRACTICES = {
   label: 'Engineering',
@@ -24,18 +26,21 @@ const PRACTICES = {
     'SOLID',
     'MVVM',
     'Cubit / Bloc',
+    'Zustand',
     'Coroutines / Flow',
-    'Unit · widget · integration tests',
-    'CI/CD',
+    'REST · Dio · Retrofit · Axios',
+    'JWT / RBAC',
+    'OAuth 2.0 / OIDC / PKCE',
     'SSL pinning',
     'AES / RSA',
     'Keystore / Keychain',
-    'OAuth 2.0 / PKCE',
-    'White-label apps',
+    'ProGuard / R8',
+    'Unit · widget · integration tests',
+    'CI/CD',
+    'Multi-tenant / white-label',
     'Agentic development',
   ],
 };
-const FEATURED = new Set(['flutter', 'dart']);
 
 const W = 1000;
 const PAD = 32;
@@ -51,10 +56,9 @@ const kicker = (t, x, y, s) => `<text x="${x}" y="${y}" style="${FONT};font-size
 const tile = (t, x, y, entry) => {
   const [key, label] = Array.isArray(entry) ? entry : [entry, ICONS[entry].title];
   const icon = ICONS[key];
-  const featured = FEATURED.has(key);
   const cx = x + TILE_W / 2;
   const size = Math.min(12.5, (12.5 * (TILE_W - 14)) / textWidth(label, 12.5, 600));
-  return `<rect x="${x.toFixed(1)}" y="${y}" width="${TILE_W.toFixed(1)}" height="${TILE_H}" rx="14" fill="${t.surface}" stroke="${featured ? t.accent : t.border}"${featured ? ' stroke-width="1.5"' : ''}/>
+  return `<rect x="${x.toFixed(1)}" y="${y}" width="${TILE_W.toFixed(1)}" height="${TILE_H}" rx="14" fill="${t.surface}" stroke="${t.border}"/>
 <svg x="${(cx - 15).toFixed(1)}" y="${y + 17}" width="30" height="30" viewBox="0 0 24 24"><path fill="${logoFill(icon.hex, t)}" d="${icon.path}"/></svg>
 <text x="${cx.toFixed(1)}" y="${y + 70}" text-anchor="middle" style="${FONT};font-size:${size.toFixed(1)}px;font-weight:600" fill="${t.text}">${esc(label)}</text>`;
 };

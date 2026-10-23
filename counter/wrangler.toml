@@ -1,0 +1,17 @@
+# Profile visit counter. Deploy: npx wrangler@4 deploy (from this folder).
+name = "profile-visits"
+main = "src/index.js"
+compatibility_date = "2026-10-01"
+workers_dev = true
+
+[vars]
+# The total the old shared counter had reached on 2026-10-23, carried over once.
+SEED = "276"
+
+[[durable_objects.bindings]]
+name = "COUNTER"
+class_name = "Counter"
+
+[[migrations]]
+tag = "v1"
+new_sqlite_classes = ["Counter"]

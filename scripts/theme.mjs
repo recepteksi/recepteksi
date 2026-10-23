@@ -56,5 +56,5 @@ export const textWidth = (s, size, weight = 500) =>
 export const logoFill = (hex, t) => {
   const n = parseInt(hex, 16);
   const luminance = (0.2126 * (n >> 16) + 0.7152 * ((n >> 8) & 255) + 0.0722 * (n & 255)) / 255;
-  return t.name === 'dark' && luminance < 0.3 ? t.text : `#${hex}`;
+  return t.name === 'dark' && luminance < 0.26 ? t.text : `#${hex}`;
 };

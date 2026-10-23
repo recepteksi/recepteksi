@@ -2,8 +2,8 @@
  * Builds the header banner and the link buttons in assets/, light and dark.
  *
  * Static content, generated rather than drawn by hand so a wording change is
- * one edit here. Motion is CSS, so a visitor who asked their system for
- * reduced motion gets a still image. Usage: node scripts/build-brand.mjs
+ * one edit here. Only the orbit moves, in CSS, so a visitor who asked their
+ * system for reduced motion gets a still image, and text is never animated in. Usage: node scripts/build-brand.mjs
  */
 import fs from 'node:fs';
 import { THEMES, FONT, esc, textWidth, logoFill } from './theme.mjs';
@@ -11,11 +11,11 @@ import { THEMES, FONT, esc, textWidth, logoFill } from './theme.mjs';
 const ICONS = JSON.parse(fs.readFileSync(new URL('./stack-icons.json', import.meta.url), 'utf8'));
 
 const HERO = {
-  kicker: 'MOBILE APPLICATION DEVELOPER',
+  kicker: 'SOFTWARE DEVELOPER',
   name: 'Recep Tayyip Ekşi',
-  lines: ['Flutter first, with Kotlin and React Native.', '3.5+ years building fintech, payment and enterprise apps.'],
+  lines: ['Mobile, web and backend, in whatever language the problem needs.', '3.5+ years shipping fintech, payment and enterprise software.'],
   location: 'İstanbul, Türkiye',
-  orbit: ['dart', 'kotlin', 'firebase', 'react'],
+  orbit: ['flutter', 'typescript', 'kotlin', 'nodedotjs', 'react', 'postgresql'],
 };
 
 const LINKS = [
@@ -27,18 +27,18 @@ const LINKS = [
 
 const W = 1000;
 const H = 300;
-const CX = 812;
+const CX = 830;
 const CY = 150;
 
 const hero = (t) => {
-  const rings = [72, 110, 146]
+  const rings = [64, 96, 124]
     .map((r, i) => `<circle cx="${CX}" cy="${CY}" r="${r}" fill="none" stroke="${t.accent}" stroke-opacity="${0.28 - i * 0.07}"${i === 2 ? ' stroke-dasharray="2 7"' : ''}/>`)
     .join('');
   const badges = HERO.orbit
     .map((key, i) => {
       const icon = ICONS[key];
-      const r = i % 2 === 0 ? 110 : 146;
-      const angle = (i * Math.PI) / 2 + Math.PI / 4;
+      const r = i % 2 === 0 ? 96 : 124;
+      const angle = (i * 2 * Math.PI) / HERO.orbit.length - Math.PI / 2;
       const x = CX + r * Math.cos(angle);
       const y = CY + r * Math.sin(angle);
       return `<g class="upright"><circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="19" fill="${t.bg}" stroke="${t.border}"/><svg x="${(x - 10).toFixed(1)}" y="${(y - 10).toFixed(1)}" width="20" height="20" viewBox="0 0 24 24"><path fill="${logoFill(icon.hex, t)}" d="${icon.path}"/></svg></g>`;
@@ -52,16 +52,13 @@ const hero = (t) => {
 <style>
 .orbit{transform-origin:${CX}px ${CY}px;animation:spin 60s linear infinite}
 .upright{transform-box:fill-box;transform-origin:center;animation:spin 60s linear infinite reverse}
-.rise{animation:rise .9s cubic-bezier(.2,.7,.2,1) both}
-.rise2{animation-delay:.12s}.rise3{animation-delay:.24s}
 @keyframes spin{to{transform:rotate(360deg)}}
-@keyframes rise{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
-@media (prefers-reduced-motion:reduce){.orbit,.upright,.rise{animation:none}}
+@media (prefers-reduced-motion:reduce){.orbit,.upright{animation:none}}
 </style>
 <defs>
 <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="${t.heroFrom}"/><stop offset="1" stop-color="${t.heroTo}"/></linearGradient>
 <radialGradient id="glow"><stop offset="0" stop-color="${t.glow}" stop-opacity="${t.glowOpacity}"/><stop offset="1" stop-color="${t.glow}" stop-opacity="0"/></radialGradient>
-<linearGradient id="mark" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#54C5F8"/><stop offset="1" stop-color="#02569B"/></linearGradient>
+<linearGradient id="mark" gradientUnits="userSpaceOnUse" x1="3" y1="5" x2="21" y2="19"><stop offset="0" stop-color="#54C5F8"/><stop offset="1" stop-color="#02569B"/></linearGradient>
 <pattern id="dots" width="18" height="18" patternUnits="userSpaceOnUse"><circle cx="1.5" cy="1.5" r="1.1" fill="${t.muted}" fill-opacity=".22"/></pattern>
 <linearGradient id="fade"><stop offset=".45" stop-color="#fff" stop-opacity="0"/><stop offset="1" stop-color="#fff" stop-opacity="1"/></linearGradient>
 <mask id="right"><rect width="${W}" height="${H}" fill="url(#fade)"/></mask>
@@ -73,18 +70,18 @@ const hero = (t) => {
 <circle cx="${CX}" cy="${CY}" r="250" fill="url(#glow)"/>
 ${rings}
 <g class="orbit">${badges}</g>
-<svg x="${CX - 46}" y="${CY - 46}" width="92" height="92" viewBox="0 0 24 24"><path fill="url(#mark)" d="${ICONS.flutter.path}"/></svg>
+<g transform="translate(${CX - 40} ${CY - 40}) scale(3.333)" fill="none" stroke="url(#mark)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m8 7-5 5 5 5M16 7l5 5-5 5M13.5 5l-3 14"/></g>
 </g>
 <rect x=".5" y=".5" width="${W - 1}" height="${H - 1}" rx="19.5" fill="none" stroke="${t.border}"/>
-<g class="rise">
+<g>
 <text x="56" y="86" style="${FONT};font-size:13px;font-weight:700;letter-spacing:2.4px" fill="${t.accent}">${esc(HERO.kicker)}</text>
 <text x="54" y="142" style="${FONT};font-size:50px;font-weight:800;letter-spacing:-1.2px" fill="${t.text}">${esc(HERO.name)}</text>
 </g>
-<g class="rise rise2">
+<g>
 <text x="56" y="184" style="${FONT};font-size:18px;font-weight:500" fill="${t.text}" fill-opacity=".86">${esc(HERO.lines[0])}</text>
 <text x="56" y="211" style="${FONT};font-size:16px" fill="${t.muted}">${esc(HERO.lines[1])}</text>
 </g>
-<g class="rise rise3">
+<g>
 <rect x="${pinX}" y="232" width="${pillW}" height="30" rx="15" fill="${t.bg}" fill-opacity=".7" stroke="${t.border}"/>
 <path transform="translate(${pinX + 11} 239) scale(.68)" d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0 1 13 0c0 5.4-6.5 11-6.5 11Z M12 12.4a2.4 2.4 0 1 0 0-4.8 2.4 2.4 0 0 0 0 4.8Z" fill="none" stroke="${t.accent}" stroke-width="2" stroke-linejoin="round"/>
 <text x="${pinX + 30}" y="252" style="${FONT};font-size:13px;font-weight:500" fill="${t.text}">${esc(HERO.location)}</text>
