@@ -8,6 +8,15 @@
  */
 const LOGIN = process.env.PROFILE_LOGIN ?? 'recepteksi';
 const ATTEMPTS = 3;
+// Loading the visit badge counts a visit, so the counter is checked on its read-only endpoint instead.
+const COUNTER = 'https://visits.recipely.net';
+
+/** The address a Camo proxy URL stands for (its last path segment is the hex-encoded original). */
+const origin = (url) => {
+  const { hostname, pathname } = new URL(url);
+  if (hostname !== 'camo.githubusercontent.com') return url;
+  return Buffer.from(pathname.split('/').pop(), 'hex').toString('utf8');
+};
 
 const get = async (url) => {
   for (let attempt = 1; ; attempt += 1) {
@@ -38,10 +47,22 @@ if (urls.size === 0) {
 }
 
 const failures = [];
+let hasCounter = false;
 for (const url of urls) {
+  if (origin(url).startsWith(COUNTER)) {
+    hasCounter = true;
+    continue;
+  }
   const response = await get(url).catch((error) => ({ ok: false, status: String(error), headers: new Headers() }));
   const type = response.headers.get('content-type') ?? '';
   if (!response.ok || !type.startsWith('image/')) failures.push(`${response.status} ${type || '-'} ${url}`);
+}
+if (hasCounter) {
+  const counter = await get(`${COUNTER}/visits.json`).catch(() => null);
+  const body = counter?.ok ? await counter.json().catch(() => null) : null;
+  if (!Number.isInteger(body?.count)) failures.push(`counter ${counter?.status ?? 'unreachable'} ${COUNTER}/visits.json`);
+} else {
+  failures.push('the visit badge is missing from the profile');
 }
 if (failures.length > 0) {
   console.error(`verify-profile: ${failures.length} of ${urls.size} images do not load:\n${failures.join('\n')}`);
