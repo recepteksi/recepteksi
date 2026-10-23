@@ -1,106 +1,28 @@
 <div align="center">
 
-# Recep Ekşi
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="assets/hero-dark.svg">
+  <img alt="Recep Tayyip Ekşi, mobile application developer. Flutter first, with Kotlin and React Native. 3.5+ years building fintech, payment and enterprise apps. İstanbul, Türkiye." src="assets/hero-light.svg" width="100%">
+</picture>
 
-**Mobile Development Team Lead · Senior Flutter & Android Developer**
+<a href="https://www.linkedin.com/in/recep-ek%C5%9Fi-473b29222/"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/link-linkedin-dark.svg"><img alt="LinkedIn" src="assets/link-linkedin-light.svg" height="44"></picture></a>&nbsp;&nbsp;<a href="mailto:recept2534@gmail.com"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/link-email-dark.svg"><img alt="Email" src="assets/link-email-light.svg" height="44"></picture></a>&nbsp;&nbsp;<a href="https://claude.ai/artifact/N6kbh5FJF5Za92iXwUSKqC"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/link-portfolio-dark.svg"><img alt="Portfolio" src="assets/link-portfolio-light.svg" height="44"></picture></a>&nbsp;&nbsp;<a href="https://recipely.net/about"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/link-recipely-dark.svg"><img alt="Recipely" src="assets/link-recipely-light.svg" height="44"></picture></a>
 
-I build Flutter apps that stay easy to change years later — Domain-Driven Design and
-Clean Architecture underneath, smooth and accessible screens on top.
-
-[LinkedIn](https://www.linkedin.com/in/recep-ek%C5%9Fi-473b29222) · [Email](mailto:recep2534@gmail.com) · [Recipely](https://recipely.net)
-
-</div>
-
----
-
-### Flutter, the way I build it
-
-- **Layered on purpose.** Domain, application, infrastructure and presentation are separate layers with
-  rules about who may import whom; entities and value objects hold the business rules, not the widgets.
-- **State you can reason about.** BLoC / Cubit with explicit, named states — loading, loaded, failed — never
-  a handful of booleans that can contradict each other.
-- **Errors are values.** Failures travel as results, so every screen decides what the user sees when
-  something goes wrong.
-- **One codebase, every screen size.** Phones, tablets, foldables and the web from the same Flutter app.
-- **Leading the team around it.** Code review, CI gates and a shared architecture so a growing team keeps
-  shipping without breaking what already works.
-
-### Featured work
-
-<table>
-<tr>
-<td width="50%" valign="top">
-
-**[LGS Ödül Avı](https://github.com/recepteksi/lgs_reward_hunt)** · Flutter<br>
-A parent-controlled, gamified study app for students preparing for the LGS exam: daily tasks, points,
-rewards a parent approves. Clean Architecture + DDD.
-
-</td>
-<td width="50%" valign="top">
-
-**[Workout Planner](https://github.com/recepteksi/workout-planner)** · Flutter<br>
-Manages workout programs on Android and the web, and tells you which program to train next.
-[Live on the web](https://workout-planner-web.web.app).
-
-</td>
-</tr>
-<tr>
-<td width="50%" valign="top">
-
-**[BriefAI](https://github.com/recepteksi/briefai)** · Flutter<br>
-An AI email assistant for mobile: spoken daily briefings, tiered smart notifications and suggested
-replies.
-
-</td>
-<td width="50%" valign="top">
-
-**[Shartflix](https://github.com/recepteksi/shartflix)** · Flutter<br>
-A case study in enterprise Flutter architecture: four DDD layers, value objects, Cubit, and one codebase
-for Android, iOS, web, Windows and macOS.
-
-</td>
-</tr>
-<tr>
-<td width="50%" valign="top">
-
-**[ARSample](https://github.com/recepteksi/ARSample)** · Kotlin Multiplatform<br>
-Augmented-reality object placement on Android and iOS (ARCore / ARKit), with Compose Multiplatform,
-Clean Architecture and DDD.
-
-</td>
-<td width="50%" valign="top">
-
-**[Recipely](https://recipely.net)** · React Native · TypeScript<br>
-A recipe app on iOS, Android and the web: import from social media, cook hands-free with a voice
-assistant, plan meals. Built on the same DDD layering.
-
-</td>
-</tr>
-</table>
-
-### Tech stack
+I build mobile apps that stay easy to change years later: a fintech super app, a bank's payment SDK,<br>white-label learning apps for enterprise brands, and [Recipely](https://recipely.net/about) on iOS, Android and the web.
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="assets/stack-dark.svg">
-  <img alt="Tech stack: Flutter, Dart, Kotlin, Android, Swift; Clean Architecture, Domain-Driven Design, BLoC / Cubit, Provider; React, Expo, TypeScript; Firebase, GitHub Actions, Postman, Figma" src="assets/stack-light.svg" width="100%">
+  <img alt="Tech stack. Mobile: Flutter, Dart, Kotlin, Jetpack Compose, Android, React Native, Expo, Ionic. Web and backend: TypeScript, React, Vue.js, Angular, Node.js, Express, Prisma, PostgreSQL. Platform and delivery: Firebase, Docker, GitLab, GitHub Actions, App Store, Google Play. Engineering: Clean Architecture, Domain-Driven Design, SOLID, MVVM, Cubit / Bloc, Coroutines / Flow, unit, widget and integration tests, CI/CD, SSL pinning, AES / RSA, Keystore / Keychain, OAuth 2.0 / PKCE, white-label apps, agentic development." src="assets/stack-light.svg" width="100%">
 </picture>
 
-### On GitHub
+<br>
 
-<p>
-  <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="assets/activity-dark.svg">
-    <img alt="GitHub activity" src="assets/activity-light.svg" width="49%">
-  </picture>
-  <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="assets/languages-dark.svg">
-    <img alt="Languages I write" src="assets/languages-light.svg" width="49%">
-  </picture>
-</p>
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="assets/activity-dark.svg">
+  <img alt="GitHub contributions over the last 12 months" src="assets/activity-light.svg" width="100%">
+</picture>
 
-<sub>These cards are generated by this repository's own daily workflow (<code>scripts/</code>), not by an outside
-service, so they cannot go missing.</sub>
+<br>
 
----
+<img alt="Profile visits" src="https://komarev.com/ghpvc/?username=recepteksi&label=profile%20visits&color=02569B&style=flat-square&abbreviated=true">
 
-<p align="center"><em>"Architecture is the decisions that you wish you could get right early in a project."</em></p>
+</div>

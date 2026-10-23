@@ -1,6 +1,6 @@
 name: Profile cards
 
-# Rebuilds the activity and language cards from GitHub's API and commits them.
+# Rebuilds the banner, stack and activity images from GitHub's API and commits them.
 # A failed run changes nothing: the README keeps showing the last good files.
 on:
   schedule:
@@ -32,6 +32,7 @@ jobs:
           # the workflow's own token counts public ones.
           GITHUB_TOKEN: ${{ secrets.PROFILE_TOKEN || secrets.GITHUB_TOKEN }}
         run: |
+          node scripts/build-brand.mjs
           node scripts/build-stack.mjs
           node scripts/build-cards.mjs
       - name: Commit changes

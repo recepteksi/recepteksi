@@ -1,65 +1,102 @@
 /**
- * Builds assets/stack-{light,dark}.svg: the tech stack as one image, Flutter first.
+ * Builds assets/stack-{light,dark}.svg: the tech stack from the CV, Flutter first.
  *
- * Logos are Simple Icons paths (CC0), copied into stack-icons.json once, so
- * this needs no network and no badge service: nothing outside this repo can
- * break the picture. Run it after editing GROUPS: node scripts/build-stack.mjs
+ * Logos are Simple Icons 15.0.0 paths (CC0) copied into stack-icons.json, so
+ * nothing outside this repo can break the picture. Ideas without a logo are
+ * pills in the last row. Usage: node scripts/build-stack.mjs
  */
 import fs from 'node:fs';
-import { THEMES, FONT, esc } from './theme.mjs';
+import { THEMES, FONT, esc, textWidth, logoFill } from './theme.mjs';
 
 const ICONS = JSON.parse(fs.readFileSync(new URL('./stack-icons.json', import.meta.url), 'utf8'));
 
-/** Each group is a row; an item is an icon key, or plain text for ideas that have no logo. */
-const GROUPS = [
-  { label: 'Mobile', items: ['flutter', 'dart', 'kotlin', 'android', 'swift'] },
-  { label: 'Architecture', items: ['Clean Architecture', 'Domain-Driven Design', 'BLoC / Cubit', 'Provider'] },
-  { label: 'Cross-platform', items: ['react', 'expo', 'typescript'] },
-  { label: 'Backend & delivery', items: ['firebase', 'githubactions', 'postman', 'figma'] },
+/** A tile is an icon key, or [key, label] when the label is not the logo's own name. */
+const ROWS = [
+  { label: 'Mobile', tiles: ['flutter', 'dart', 'kotlin', 'jetpackcompose', 'android', ['react', 'React Native'], 'expo', 'ionic'] },
+  { label: 'Web & backend', tiles: ['typescript', 'react', 'vuedotjs', 'angular', 'nodedotjs', 'express', 'prisma', 'postgresql'] },
+  { label: 'Platform & delivery', tiles: ['firebase', 'docker', 'gitlab', 'githubactions', 'appstore', 'googleplay'] },
 ];
+const PRACTICES = {
+  label: 'Engineering',
+  pills: [
+    'Clean Architecture',
+    'Domain-Driven Design',
+    'SOLID',
+    'MVVM',
+    'Cubit / Bloc',
+    'Coroutines / Flow',
+    'Unit · widget · integration tests',
+    'CI/CD',
+    'SSL pinning',
+    'AES / RSA',
+    'Keystore / Keychain',
+    'OAuth 2.0 / PKCE',
+    'White-label apps',
+    'Agentic development',
+  ],
+};
 const FEATURED = new Set(['flutter', 'dart']);
 
-const W = 980;
-const ROW_H = 58;
-const H = 36 + GROUPS.length * ROW_H;
-const CHIP_H = 36;
-const LABEL_W = 190;
+const W = 1000;
+const PAD = 32;
+const COLS = 8;
+const GAP = 10;
+const TILE_W = (W - PAD * 2 - GAP * (COLS - 1)) / COLS;
+const TILE_H = 88;
+const LABEL_H = 34;
+const PILL_H = 32;
 
-const textWidth = (s, size) => s.length * size * 0.58;
+const kicker = (t, x, y, s) => `<text x="${x}" y="${y}" style="${FONT};font-size:12px;font-weight:700;letter-spacing:1.8px" fill="${t.muted}">${esc(s.toUpperCase())}</text>`;
 
-const chip = (t, x, y, item) => {
-  const icon = ICONS[item];
-  const featured = FEATURED.has(item);
-  const label = icon ? icon.title : item;
-  const pad = 14;
-  const iconSize = 18;
-  const w = Math.round(pad * 2 + (icon ? iconSize + 8 : 0) + textWidth(label, 13.5));
-  const fill = featured ? t.accentSoft : t.bg;
-  const stroke = featured ? t.accent : t.border;
-  const svgIcon = icon
-    ? `<svg x="${x + pad}" y="${y + (CHIP_H - iconSize) / 2}" width="${iconSize}" height="${iconSize}" viewBox="0 0 24 24"><path fill="#${icon.hex === '000020' ? (t === THEMES.dark ? 'e6edf3' : '000020') : icon.hex}" d="${icon.path}"/></svg>`
-    : '';
-  const tx = x + pad + (icon ? iconSize + 8 : 0);
-  return {
-    w,
-    svg: `<rect x="${x}" y="${y}" width="${w}" height="${CHIP_H}" rx="18" fill="${fill}" stroke="${stroke}"/>${svgIcon}<text x="${tx}" y="${y + 23}" style="${FONT};font-size:13.5px;font-weight:${featured ? 700 : 500}" fill="${t.text}">${esc(label)}</text>`,
-  };
+const tile = (t, x, y, entry) => {
+  const [key, label] = Array.isArray(entry) ? entry : [entry, ICONS[entry].title];
+  const icon = ICONS[key];
+  const featured = FEATURED.has(key);
+  const cx = x + TILE_W / 2;
+  const size = Math.min(12.5, (12.5 * (TILE_W - 14)) / textWidth(label, 12.5, 600));
+  return `<rect x="${x.toFixed(1)}" y="${y}" width="${TILE_W.toFixed(1)}" height="${TILE_H}" rx="14" fill="${t.surface}" stroke="${featured ? t.accent : t.border}"${featured ? ' stroke-width="1.5"' : ''}/>
+<svg x="${(cx - 15).toFixed(1)}" y="${y + 17}" width="30" height="30" viewBox="0 0 24 24"><path fill="${logoFill(icon.hex, t)}" d="${icon.path}"/></svg>
+<text x="${cx.toFixed(1)}" y="${y + 70}" text-anchor="middle" style="${FONT};font-size:${size.toFixed(1)}px;font-weight:600" fill="${t.text}">${esc(label)}</text>`;
+};
+
+const layoutPills = () => {
+  const placed = [];
+  let x = PAD;
+  let line = 0;
+  for (const pill of PRACTICES.pills) {
+    const w = Math.round(28 + textWidth(pill, 13));
+    if (x + w > W - PAD) {
+      x = PAD;
+      line += 1;
+    }
+    placed.push({ pill, x, line, w });
+    x += w + 8;
+  }
+  return { placed, lines: line + 1 };
 };
 
 const card = (t) => {
-  const rows = GROUPS.map((group, row) => {
-    const y = 24 + row * ROW_H;
-    let x = LABEL_W;
-    const chips = group.items.map((item) => {
-      const c = chip(t, x, y, item);
-      x += c.w + 10;
-      return c.svg;
-    });
-    return `<text x="28" y="${y + 23}" style="${FONT};font-size:13px;font-weight:600;letter-spacing:.4px" fill="${t.muted}">${esc(group.label.toUpperCase())}</text>${chips.join('')}`;
-  });
-  return `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" role="img" aria-label="Tech stack: ${esc(GROUPS.flatMap((g) => g.items.map((i) => ICONS[i]?.title ?? i)).join(', '))}">
-<rect x="0.5" y="0.5" width="${W - 1}" height="${H - 1}" rx="14" fill="${t.bg}" stroke="${t.border}"/>
-${rows.join('\n')}
+  const parts = [];
+  let y = PAD;
+  for (const row of ROWS) {
+    parts.push(kicker(t, PAD, y + 14, row.label));
+    y += LABEL_H;
+    row.tiles.forEach((entry, i) => parts.push(tile(t, PAD + i * (TILE_W + GAP), y, entry)));
+    y += TILE_H + 26;
+  }
+  parts.push(kicker(t, PAD, y + 14, PRACTICES.label));
+  y += LABEL_H;
+  const { placed, lines } = layoutPills();
+  for (const { pill, x, line, w } of placed) {
+    const py = y + line * (PILL_H + 8);
+    parts.push(`<rect x="${x}" y="${py}" width="${w}" height="${PILL_H}" rx="16" fill="${t.surface}" stroke="${t.border}"/>
+<text x="${x + w / 2}" y="${py + 21}" text-anchor="middle" style="${FONT};font-size:13px;font-weight:500" fill="${t.text}">${esc(pill)}</text>`);
+  }
+  const h = y + lines * (PILL_H + 8) - 8 + PAD;
+  const names = [...ROWS.flatMap((r) => r.tiles.map((e) => (Array.isArray(e) ? e[1] : ICONS[e].title))), ...PRACTICES.pills];
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${h}" viewBox="0 0 ${W} ${h}" role="img" aria-label="Tech stack: ${esc(names.join(', '))}">
+<rect x=".5" y=".5" width="${W - 1}" height="${h - 1}" rx="20" fill="${t.bg}" stroke="${t.border}"/>
+${parts.join('\n')}
 </svg>
 `;
 };
