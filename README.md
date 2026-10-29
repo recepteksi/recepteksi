@@ -39,8 +39,8 @@ I'm not tied to one stack. I've shipped Dart, Kotlin, TypeScript and JavaScript,
 ## On GitHub
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="assets/activity-dark.svg?v=cb535485f2">
-  <img alt="GitHub contributions over the last 12 months" src="assets/activity-light.svg?v=7a0aa1cb7c" width="100%">
+  <source media="(prefers-color-scheme: dark)" srcset="assets/activity-dark.svg?v=acff773410">
+  <img alt="GitHub contributions over the last 12 months" src="assets/activity-light.svg?v=ce8272944c" width="100%">
 </picture>
 
 <p align="center">
